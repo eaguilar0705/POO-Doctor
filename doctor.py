@@ -9,16 +9,18 @@ class Doctor:
     Doctor class that represents a medical doctor with greeting capabilities
     """
     
-    def __init__(self, nombre="Doctor", especialidad="General"):
+    def __init__(self, nombre="Doctor", especialidad="General", titulo="Dr."):
         """
         Initialize a Doctor instance
         
         Args:
             nombre (str): The name of the doctor
             especialidad (str): The medical specialty of the doctor
+            titulo (str): The title of the doctor (e.g., "Dr.", "Dra.", "Dr./Dra.")
         """
         self.nombre = nombre
         self.especialidad = especialidad
+        self.titulo = titulo
     
     def saludar(self):
         """
@@ -27,7 +29,7 @@ class Doctor:
         Returns:
             str: A greeting message from the doctor
         """
-        return f"Hola, soy el Dr. {self.nombre}, especialista en {self.especialidad}"
+        return f"Hola, soy el {self.titulo} {self.nombre}, especialista en {self.especialidad}"
     
     def __str__(self):
         """
@@ -36,7 +38,7 @@ class Doctor:
         Returns:
             str: A string describing the doctor
         """
-        return f"Dr. {self.nombre} - {self.especialidad}"
+        return f"{self.titulo} {self.nombre} - {self.especialidad}"
 
 
 def main():
@@ -48,6 +50,10 @@ def main():
     
     # Display the greeting
     print(doctor.saludar())
+    
+    # Create a female doctor with Dra. title
+    doctora = Doctor("García", "Pediatría", "Dra.")
+    print(doctora.saludar())
     
     # Create another doctor with default values
     doctor_default = Doctor()

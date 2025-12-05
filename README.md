@@ -8,7 +8,8 @@ Este proyecto implementa una clase `Doctor` que representa a un médico con capa
 
 ## Características
 
-- Clase `Doctor` con atributos de nombre y especialidad
+- Clase `Doctor` con atributos de nombre, especialidad y título
+- Soporte para títulos inclusivos (Dr., Dra., etc.)
 - Método `saludar()` que retorna un mensaje de bienvenida
 - Demostración de constructores con valores por defecto
 - Método `__str__` para representación de texto
@@ -25,6 +26,7 @@ python3 doctor.py
 
 ```
 Hola, soy el Dr. Pérez, especialista en Medicina General
+Hola, soy el Dra. García, especialista en Pediatría
 Hola, soy el Dr. Doctor, especialista en General
 ```
 
@@ -36,6 +38,10 @@ doctor = Doctor("García", "Cardiología")
 
 # Saludar
 print(doctor.saludar())  # Hola, soy el Dr. García, especialista en Cardiología
+
+# Crear una doctora con título personalizado
+doctora = Doctor("López", "Neurología", "Dra.")
+print(doctora.saludar())  # Hola, soy el Dra. López, especialista en Neurología
 ```
 
 ## Requisitos
