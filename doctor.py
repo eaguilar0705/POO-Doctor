@@ -29,7 +29,7 @@ class Doctor:
         Returns:
             str: A greeting message from the doctor
         """
-        return f"Hola, soy el {self.titulo} {self.nombre}, especialista en {self.especialidad}"
+        return f"Hola, soy {self.titulo} {self.nombre}, especialista en {self.especialidad}"
     
     def __str__(self):
         """

@@ -25,9 +25,9 @@ python3 doctor.py
 ### Salida esperada:
 
 ```
-Hola, soy el Dr. Pérez, especialista en Medicina General
-Hola, soy el Dra. García, especialista en Pediatría
-Hola, soy el Dr. Doctor, especialista en General
+Hola, soy Dr. Pérez, especialista en Medicina General
+Hola, soy Dra. García, especialista en Pediatría
+Hola, soy Dr. Doctor, especialista en General
 ```
 
 ## Ejemplo de Código
@@ -37,11 +37,11 @@ Hola, soy el Dr. Doctor, especialista en General
 doctor = Doctor("García", "Cardiología")
 
 # Saludar
-print(doctor.saludar())  # Hola, soy el Dr. García, especialista en Cardiología
+print(doctor.saludar())  # Hola, soy Dr. García, especialista en Cardiología
 
 # Crear una doctora con título personalizado
 doctora = Doctor("López", "Neurología", "Dra.")
-print(doctora.saludar())  # Hola, soy el Dra. López, especialista en Neurología
+print(doctora.saludar())  # Hola, soy Dra. López, especialista en Neurología
 ```
 
 ## Requisitos
