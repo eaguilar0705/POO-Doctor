@@ -1,0 +1,63 @@
+﻿<?xml version = "1.0" encoding = "ISO-8859-1"?>
+
+<!DOCTYPE controllers SYSTEM "dtds/controllers.dtd">
+
+<!-- 
+Controllers doc: 
+https://www.openxava.org/OpenXavaDoc/docs/controllers_en.html
+
+Default controllers included in OpenXava (you can extend from them):
+https://github.com/openxava/openxava/blob/master/openxava/src/main/resources/xava/default-controllers.xml
+ 
+Examples of controllers (from test application):
+https://github.com/openxava/openxava/blob/master/openxavatest/src/main/resources/xava/controllers.xml
+-->
+
+<controllers>
+    
+    <!-- Environment variable:
+    <env-var name="ProyectoPOO_DEFAULT_YEAR" value="2015"/> 
+    -->
+    
+    <!-- Session object:
+    <object name="ProyectoPOO_activeYear" class="java.lang.Integer" value="2015" 
+    	    scope="global"/>    
+    -->
+    
+    <!-- Controller:
+    <controller name="Teacher">
+    	<extends controller="Typical"/>
+    	<action name="new" icon="plus-box-multiple" keystroke="Control N"
+        	class="actions.CreateTeacher">
+    	</action>
+	</controller>    
+    -->
+
+
+    <controller name="SignIn">
+
+        <action name="init" on-init="true" hidden="true"
+                class="com.openxava.naviox.actions.InitSignInAction"/>
+
+        <!--  OPCIÓN A: LOGIN ESTÁNDAR (admin / admin)
+              Usa la tabla y configuración por defecto de Naviox
+        -->
+        <action name="signIn"
+                class="com.openxava.naviox.actions.SignInAction"/>
+
+        <!--  OPCIÓN B: LOGIN CON TU TABLA Usuario
+              Para usar emmanuel.aguilar / admin123, comenta la acción de arriba
+              y descomenta esta:
+        -->
+        <!--
+        <action name="signIn"
+                class="org.example.ProyectoPOO.model.actions.Conexion"/>
+        -->
+
+        <action name="cancel"
+                class="com.openxava.naviox.actions.CancelSignInAction"/>
+    </controller>
+
+
+    
+</controllers>
