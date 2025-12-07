@@ -23,8 +23,8 @@
 
     <!-- PESTAÑAS -->
     <div class="tabs">
-        <button class="tab-link active" onclick="openTab(event, 'Rastreo')">Rastreo de Paquetes</button>
-        <button class="tab-link" onclick="openTab(event, 'Cotizar')">Cotizar Envío</button>
+        <button class="tab-link active" data-target="Rastreo">Rastreo de Paquetes</button>
+        <button class="tab-link" data-target="Cotizar">Cotizar Envío</button>
     </div>
 
     <!-- TAB RASTREO -->
@@ -142,7 +142,7 @@
         <div class="search-box">
             <form id="cotizar-form" class="search-form">
                 <label for="peso">Peso del producto (libras)</label>
-                <input type="number" id="peso" name="peso" placeholder="Ej: 10" required step="0.01">
+                <input type="number" id="peso" name="peso" placeholder="Ej: 10" required step="0.01" min="0.01">
 
                 <label for="metodo-envio">Método de Envío</label>
                 <select id="metodo-envio" name="metodo-envio">
@@ -171,67 +171,65 @@
 </div>
 
 <script>
-    // Cambiar entre pestañas
-    function openTab(evt, tabName) {
-        var i;
-        var tabcontent = document.getElementsByClassName("tab-content");
-        var tablinks = document.getElementsByClassName("tab-link");
+    document.addEventListener('DOMContentLoaded', function () {
+        // Manejo de pestañas (delegación simple)
+        document.querySelectorAll('.tab-link').forEach(function(btn) {
+            btn.addEventListener('click', function (evt) {
+                var target = btn.getAttribute('data-target');
+                if (!target) return;
 
-        // Ocultar todos los contenidos
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].classList.remove("active");
+                // ocultar todos los contenidos y quitar active de botones
+                document.querySelectorAll('.tab-content').forEach(function(tc){ tc.classList.remove('active'); });
+                document.querySelectorAll('.tab-link').forEach(function(b){ b.classList.remove('active'); });
+
+                var content = document.getElementById(target);
+                if (content) content.classList.add('active');
+                btn.classList.add('active');
+            });
+        });
+
+        // Listener seguro para el formulario de cotización
+        var cotizarForm = document.getElementById('cotizar-form');
+        if (cotizarForm) {
+            cotizarForm.addEventListener('submit', function (e) {
+                e.preventDefault();
+
+                var pesoInput = document.getElementById('peso');
+                var metodoSelect = document.getElementById('metodo-envio');
+                var resultadoCard = document.getElementById('resultado-cotizacion');
+                var costoElem = document.getElementById('costo-envio');
+                var detalleElem = document.getElementById('detalle-envio');
+
+                var peso = parseFloat(pesoInput.value);
+                var metodo = metodoSelect.value;
+                var costo = 0;
+                var detalle = '';
+
+                if (isNaN(peso) || peso <= 0) {
+                    alert("Por favor, ingrese un peso válido mayor que 0.");
+                    return;
+                }
+
+                if (metodo === 'aereo') {
+                    costo = peso * 7.50;
+                    detalle = "Envío aéreo: tiempo estimado de 24 a 72 horas. Ideal cuando quieres tu paquete lo más rápido posible.";
+                } else {
+                    costo = peso * 2.50;
+                    detalle = "Envío marítimo: tiempo estimado de 12 a 15 días. Ideal para productos pesados o envíos en volumen.";
+                }
+
+                // Mostrar resultados
+                costoElem.innerText = 'El costo estimado del envío es: $' + costo.toFixed(2);
+                detalleElem.innerText = detalle;
+                if (resultadoCard) resultadoCard.style.display = 'block';
+
+                // Opcional: cambiar a la pestaña Cotizar si no está activa
+                var cotizarTabBtn = document.querySelector('.tab-link[data-target="Cotizar"]');
+                if (cotizarTabBtn && !document.getElementById('Cotizar').classList.contains('active')) {
+                    cotizarTabBtn.click();
+                }
+            });
         }
-
-        // Quitar "active" de todos los botones
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].classList.remove("active");
-        }
-
-        // Activar contenido y botón actual
-        document.getElementById(tabName).classList.add("active");
-        evt.currentTarget.classList.add("active");
-    }
-
-    // Asegurar que alguna pestaña esté activa al cargar
-    document.addEventListener('DOMContentLoaded', function() {
-        var activeContent = document.querySelector('.tab-content.active');
-        var activeButton = document.querySelector('.tab-link.active');
-
-        if (!activeContent && document.getElementById('Rastreo')) {
-            document.getElementById('Rastreo').classList.add('active');
-        }
-        if (!activeButton) {
-            var firstButton = document.querySelector('.tab-link');
-            if (firstButton) firstButton.classList.add('active');
-        }
-    });
-
-    // Lógica de cotización
-    document.getElementById('cotizar-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        var peso = parseFloat(document.getElementById('peso').value);
-        var metodo = document.getElementById('metodo-envio').value;
-        var costo;
-        var detalle;
-
-        if (isNaN(peso) || peso <= 0) {
-            alert("Por favor, ingrese un peso válido.");
-            return;
-        }
-
-        if (metodo === 'aereo') {
-            costo = peso * 7.50;
-            detalle = "Envío aéreo: tiempo estimado de 24 a 72 horas. Ideal cuando quieres tu paquete lo más rápido posible.";
-        } else {
-            costo = peso * 2.50;
-            detalle = "Envío marítimo: tiempo estimado de 12 a 15 días. Ideal para productos pesados o si eres un emprendedor con alta demanda de paquetes.";
-        }
-
-        document.getElementById('costo-envio').innerText =
-            'El costo estimado del envío es: $' + costo.toFixed(2);
-        document.getElementById('detalle-envio').innerText = detalle;
-        document.getElementById('resultado-cotizacion').style.display = 'block';
     });
 </script>
 
