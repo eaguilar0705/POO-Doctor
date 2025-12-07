@@ -41,7 +41,61 @@ body {
     box-sizing: border-box;
 }
 
-/* === BUSCADOR === */
+/* === TABS === */
+
+.tabs {
+    display: flex;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    background: rgba(15, 23, 42, 0.96);
+    border: 1px solid rgba(148, 163, 184, 0.55);
+    overflow: hidden;
+    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.7);
+}
+
+.tab-link {
+    flex: 1;
+    padding: 12px 10px;
+    border: none;
+    background: transparent;
+    color: #9ca3af;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    text-align: center;
+    border-bottom: 2px solid transparent;
+}
+
+.tab-link:hover {
+    background-color: rgba(30, 41, 59, 0.5);
+    color: #e5e7eb;
+}
+
+.tab-link.active {
+    color: #38bdf8;
+    border-bottom-color: #38bdf8;
+    background-color: rgba(15, 23, 42, 0.96);
+}
+
+/* CONTENIDO DE TABS */
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.5s;
+}
+
+/* el tab visible */
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* === BUSCADOR Y FORMULARIOS === */
 
 .search-box {
     background: rgba(15, 23, 42, 0.96);
@@ -55,7 +109,7 @@ body {
 .search-form {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 12px;
     width: 100%;
 }
 
@@ -66,7 +120,9 @@ body {
     margin-bottom: 4px;
 }
 
-.search-box input[type="text"] {
+.search-box input[type="text"],
+.search-box input[type="number"],
+.search-box select {
     flex: 1;
     min-width: 220px;
     padding: 9px 11px;
@@ -79,11 +135,24 @@ body {
     transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
 }
 
-.search-box input[type="text"]::placeholder {
+.search-box select {
+    -webkit-appearance: none;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%239ca3af%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.293%207.293a1%201%200%20011.414%200L10%2010.586l3.293-3.293a1%201%200%20111.414%201.414l-4%204a1%201%200%2001-1.414%200l-4-4a1%201%200%20010-1.414z%22%20clip-rule%3D%22evenodd%22%20%2F%3E%3C%2Fsvg%3E');
+    background-position: right 10px top 50%;
+    background-repeat: no-repeat;
+    background-size: 1.2em;
+    padding-right: 30px;
+}
+
+.search-box input[type="text"]::placeholder,
+.search-box input[type="number"]::placeholder {
     color: #9ca3af;
 }
 
-.search-box input[type="text"]:focus {
+.search-box input[type="text"]:focus,
+.search-box input[type="number"]:focus,
+.search-box select:focus {
     border-color: #38bdf8;
     box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.7);
     background-color: #020617;
